@@ -1,9 +1,3 @@
-/*
- * Created by Ayomitide OAJ
- * 
- * 
- */
-
 package visualiser;
 
 import java.util.ArrayList;

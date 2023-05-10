@@ -81,7 +81,7 @@ public class VisNode extends Button implements Vertex {
         }
         return neighbours;
     }
-    public Edge                 getConnection(VisNode neighbour){
+    public Edge getConnection(VisNode neighbour){
         for(Edge a : edges){
             if(a.getNeighbour(this) == neighbour){
                 return a;
@@ -97,41 +97,41 @@ public class VisNode extends Button implements Vertex {
         return info;
     }
 
-    public void                 setParentNode(Vertex node){
+    public void setParentNode(Vertex node){
         this.parent.set(node);
     }
-    public Vertex               getParentNode(){
+    public Vertex getParentNode(){
         return parent.getValue();
     }
-    public void                 setScore(double score){
+    public void  setScore(double score){
         showScore.setValue(true);
         this.score.set(score);
     }
-    public double               getScore(){
+    public double getScore(){
         showScore.setValue(true);
         return score.getValue();
     }
-    public void                 setGScore(double score) {
+    public void setGScore(double score) {
         showScores.setValue(true);
         gScore.set(score);
     }
-    public double               getGScore() {
+    public double getGScore() {
         showScores.setValue(true);
         return gScore.get();
     }
-    public double               getX() {
+    public double getX() {
         return getLayoutX();
     }
-    public double               getY() {
+    public double getY() {
         return getLayoutY();
     }
-    public static void          setShowScores(boolean show){
+    public static void setShowScores(boolean show){
         showScores.setValue(show);
     }
-    public static void          setShowScore(boolean show){
+    public static void setShowScore(boolean show){
         showScore.setValue(show);
     }
-    public String               toString(){
+    public String toString(){
         return getId();
     }
 }

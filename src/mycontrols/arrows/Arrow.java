@@ -49,7 +49,14 @@ public class Arrow extends Group {
 
     //METHODS
     public void setUpStyleClassStructure(){
-        //whenever this class's styleclass is updated, update the children as well.
+        mainLine.getStyleClass().setAll("arrow");
+        headA.getStyleClass().setAll("arrow");
+        headB.getStyleClass().setAll("arrow");
+
+        headA.getStyleClass().setAll("arrowHead");
+        headB.getStyleClass().setAll("arrowHead");
+
+        //whenever this class style class is updated, update the children as well.
         getStyleClass().addListener((ListChangeListener<? super String>) c -> {
             c.next();
             for(Node n : new Polyline[]{mainLine,headA,headB}){
@@ -61,6 +68,7 @@ public class Arrow extends Group {
         for(Polyline p : new Polyline[]{mainLine,headA,headB}){
             p.getStyleClass().setAll("arrow");
         }
+
         //apply a class for styling the arrow heads only
         for(Polyline p : new Polyline[]{headA,headB}){
             p.getStyleClass().add("arrowhead");
@@ -75,10 +83,13 @@ public class Arrow extends Group {
         double y1 = start[1];
         double x2 = end[0];
         double y2 = end[1];
+
         //main line
         mainLine.getPoints().setAll(x1,y1,x2,y2);
+
         //line slope
         double theta = Math.atan2( (y2-y1), (x2-x1) );
+
         //arrow head 1
         double x = x1 + Math.cos(theta + arrowHeadAngle) * arrowHeadLength;
         double y = y1 + Math.sin(theta + arrowHeadAngle) * arrowHeadLength;
@@ -86,6 +97,7 @@ public class Arrow extends Group {
         x = x1 + Math.cos(theta - arrowHeadAngle) * arrowHeadLength;
         y = y1 + Math.sin(theta - arrowHeadAngle) * arrowHeadLength;
         headA.getPoints().addAll(x,y);
+
         //arrow head 2
         x = x2 - Math.cos(theta + arrowHeadAngle) * arrowHeadLength;
         y = y2 - Math.sin(theta + arrowHeadAngle) * arrowHeadLength;

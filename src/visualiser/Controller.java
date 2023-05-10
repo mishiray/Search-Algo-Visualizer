@@ -373,7 +373,6 @@ public class Controller {
             solveThread.set(null);
     }
 
-
     //Node events
     private void nodeMousePressed(MouseEvent e, VisNode v) {
         if(e.isPrimaryButtonDown()){
@@ -382,6 +381,7 @@ public class Controller {
             deleteNode = true;
         }
     }
+
     private void onNodeDragDetected(MouseEvent e, VisNode n) {
         if(e.isPrimaryButtonDown()){
             n.startFullDrag();
@@ -405,6 +405,7 @@ public class Controller {
             node2 = n;
         }
     }
+
     /**
      * When a node is dragged
      * */
@@ -415,6 +416,7 @@ public class Controller {
             node2.setLayoutY(n.getLayoutY() + e.getY() + n.getTranslateY());
         }
     }
+
     private void nodeMouseDragEntered(MouseDragEvent e, VisNode n) {
         //if the "dragEntered" node isn't either of the two just created
         if(n != node2 && n != node1){
@@ -423,6 +425,7 @@ public class Controller {
             node2.setVisible(false);
         }
     }
+
     private void nodeMouseDragExited(MouseDragEvent e, VisNode n) {
         if(node2 != null){
             node2.setVisible(true);
@@ -432,6 +435,7 @@ public class Controller {
             nodeTmp = null;
         }
     }
+
     private void onNodeReleased(MouseEvent e, VisNode n) {
         //if mouse was released while over a pre-exisiting node
         if(nodeTmp != null){

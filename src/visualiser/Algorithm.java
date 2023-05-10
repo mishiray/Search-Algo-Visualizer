@@ -21,21 +21,21 @@ import java.util.ArrayList;
 
 public abstract class Algorithm {
 
-    private Controller                  controller;
-    protected Vertex                    start;
-    protected Vertex                    destination;
-    private boolean                     stepDisabled = false;
-    protected static final int          STACK=0, QUEUE=1, PRIORITY_QUEUE=2;
-    static protected DataStructure      frontier;
-    protected DataStructure             visited;
-    private VisNode                     currentNode = null;
-    private VisNode                     neighbourNode = null;
-    private final ArrayList<VisNode>          path = new ArrayList<>();
-    static ArrayList<Edge>              projectedLines = new ArrayList<>();
-    protected ObservableList<String>    pseudocode = FXCollections.observableArrayList();
+    private Controller controller;
+    protected Vertex start;
+    protected Vertex destination;
+    private boolean stepDisabled = false;
+    protected static final int STACK=0, QUEUE=1, PRIORITY_QUEUE=2;
+    static protected DataStructure frontier;
+    protected DataStructure visited;
+    private VisNode currentNode = null;
+    private VisNode  neighbourNode = null;
+    private final ArrayList<VisNode> path = new ArrayList<>();
+    static ArrayList<Edge> projectedLines = new ArrayList<>();
+    protected ObservableList<String> pseudocode = FXCollections.observableArrayList();
     private static final ChangeListener<String> changeListener = Algorithm::refreshFrontier;
 
-    void                    run(Controller controller, boolean step) {
+    void run(Controller controller, boolean step) {
         //initiate
         this.controller = controller;
         visited = new Stack(controller, DataStructure.VISITED);
@@ -56,8 +56,8 @@ public abstract class Algorithm {
         //post run
         printResults();
     }
-    public abstract void    solve();
-    private void            printResults(){
+    public abstract void solve();
+    private void printResults(){
         if(path.size() > 0) { //if a path has been found.
             Label visitedDetails = new Label("Visited: " + (controller.listB.getItems().size()) );
             //path details
@@ -81,16 +81,16 @@ public abstract class Algorithm {
             });
         }
     }
-    private double          nodeDistance(Vertex a, Vertex b){
+    private double nodeDistance(Vertex a, Vertex b){
         return  Math.sqrt(
                 Math.pow( b.getY() - a.getY(), 2 ) +
                         Math.pow( b.getX() - a.getX(), 2 )
         );
     }
-    protected void          addToPath(Vertex node){
+    protected void addToPath(Vertex node){
         path.add( ((VisNode)node) );
     }
-    protected void          drawPath(){
+    protected void drawPath(){
         for (int i = 0; i < path.size()-1; i++) {
             VisNode n = path.get(i);
             Edge a = n.getConnection(path.get(i+1));
@@ -119,10 +119,10 @@ public abstract class Algorithm {
             } catch (Exception ignored) {}
         }
     }
-    private void            setStepDisable(boolean stepThrough) {
+    private void setStepDisable(boolean stepThrough) {
         this.stepDisabled = stepThrough;
     }
-    private void            setUpPseudocode(){
+    private void setUpPseudocode(){
         setPseudocode();
         if(pseudocode != null){
             Platform.runLater( () -> {
@@ -130,10 +130,10 @@ public abstract class Algorithm {
             });
         }
     }
-    protected void          setPseudocode(){
+    protected void setPseudocode(){
         pseudocode = null;
     }
-    protected double        getWeight(Vertex a, Vertex b){
+    protected double getWeight(Vertex a, Vertex b){
         for(Edge e : ((VisNode)a).edges){
             if(e.getNeighbour((Node)a)==b){
                 return e.getWeight();
@@ -141,7 +141,7 @@ public abstract class Algorithm {
         }
         return -1;
     }
-    protected void          setCurrent(Vertex node){
+    protected void setCurrent(Vertex node){
 //        Platform.runLater( () -> {
             if(currentNode != null) //set previous value to false first
                 currentNode.pseudoClassStateChanged(Controller.ps_currentNode, false);
@@ -150,10 +150,10 @@ public abstract class Algorithm {
 //        });
         currentNode = (VisNode)node;
     }
-    protected Vertex        getCurrent(){
+    protected Vertex  getCurrent(){
         return currentNode;
     }
-    protected void          setNeighbour(Vertex node){
+    protected void setNeighbour(Vertex node){
 //        Platform.runLater( () -> {
             if(neighbourNode != null) //set previous value to false first
                 neighbourNode.pseudoClassStateChanged(Controller.ps_neighbourNode, false);
@@ -162,10 +162,10 @@ public abstract class Algorithm {
 //        });
         neighbourNode = (VisNode)node;
     }
-    protected Vertex        getNeighbour(){
+    protected Vertex getNeighbour(){
         return neighbourNode;
     }
-    protected void          initializeFrontierAs(int type){
+    protected void initializeFrontierAs(int type){
 //        if(frontier != null){
 //            throw new Error("Frontier can only be initialized once per run.");
 //        }
@@ -181,7 +181,7 @@ public abstract class Algorithm {
                 break;
         }
     }
-    protected void          projectLine(Vertex a, Vertex b){
+    protected void projectLine(Vertex a, Vertex b){
         Edge projectedLine = new Edge((VisNode)a, (VisNode)b);
         projectedLine.x1Property().bind(((VisNode)a).layoutXProperty());
         projectedLine.y1Property().bind(((VisNode)a).layoutYProperty());
@@ -197,20 +197,20 @@ public abstract class Algorithm {
             controller.graphSpace.getChildren().add(projectedLine);
         });
     }
-    protected void          removeProjectedLine(){
+    protected void removeProjectedLine(){
         for(Edge a : projectedLines) {
             Platform.runLater(() -> {
                 controller.graphSpace.getChildren().remove(a);
             });
         }
     }
-    private static void     refreshFrontier(ObservableValue<? extends String> observableValue, String s, String s1) {
+    private static void refreshFrontier(ObservableValue<? extends String> observableValue, String s, String s1) {
         frontier.refreshFrontier();
     }
-    static void             removeNodeDataListener(VisNode v){
+    static void removeNodeDataListener(VisNode v){
         v.getSimpleString().removeListener(changeListener);
     }
-    public String           toString(){
+    public String  toString(){
         return this.getClass().getSimpleName();
     }
 }

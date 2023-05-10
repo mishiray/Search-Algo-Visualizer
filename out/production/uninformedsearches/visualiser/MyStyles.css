@@ -1,0 +1,13 @@
+.visNode{
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 0 10 0 10;
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+}
+
+.graphSpace{
+    -fx-background-color: #5A5A5A;
+}

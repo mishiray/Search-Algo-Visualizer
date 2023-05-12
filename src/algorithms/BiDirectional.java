@@ -56,7 +56,7 @@ public class BiDirectional extends Algorithm {
         while(!frontier.isEmpty() && !frontier2.isEmpty() && intersection == -1) {
             step(3);
             doBFS(frontier, visited);
-            step(4)
+            step(4);
             doBFS(frontier2, visited2);
             step(5);
             for (Vertex tmp : getCurrent().getNeighbours()) {

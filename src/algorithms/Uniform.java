@@ -93,4 +93,9 @@ public class Uniform extends Algorithm {
                         Math.pow( b.getX() - a.getX(), 2 )
         );
     }
+
+
+    public String toString(){
+        return "Uniform Cost";
+    }
 }

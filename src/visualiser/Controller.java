@@ -6,10 +6,7 @@
 
 package visualiser;
 
-import algorithms.AStar;
-import algorithms.Uniform;
-import algorithms.BreadthFirst;
-import algorithms.DepthFirst;
+import algorithms.*;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,8 +45,8 @@ public class Controller {
     @FXML TabPane tabPane;
     @FXML ScrollPane spNetwork;
     @FXML Accordion acrNetwork;
-    @FXML AnchorPane spMoreInfo;
-    @FXML TextArea txtUserAlgo;
+//    @FXML AnchorPane spMoreInfo;
+//    @FXML TextArea txtUserAlgo;
     private VisNode node1;
     private VisNode node2;
     private VisNode nodeTmp;
@@ -68,7 +65,7 @@ public class Controller {
     public void initialize(){
         setUpHotKeys();
         readInUserAlgorithms();
-        for(Algorithm a : new Algorithm[]{ new AStar(), new Uniform(), new BreadthFirst(), new DepthFirst() }){
+        for(Algorithm a : new Algorithm[]{ new AStar(), new Uniform(), new BreadthFirst(), new DepthFirst(), new BiDirectional(), new IterativeDeepening()}){
             cbxAlgorithms.getItems().add(a);
         }
         cbxAlgorithms.getSelectionModel().selectFirst();
@@ -98,34 +95,6 @@ public class Controller {
         ImageView iv = new ImageView(img);
         iv.setLayoutX(260);
         iv.setLayoutY(90);
-        spMoreInfo.getChildren().add(iv);
-        //this text, with "\n" cannot be set in fxml so must be done here instead, unfortunately.
-        txtUserAlgo.setText(
-                        "Users can test themselves by writing their own versions of the path-finding algorithms.\n" +
-                        "To do so, do the following:\n\n" +
-                        "Create a new Java project and add a package titled \"algorithms\"\n" +
-                        "In \"algorithms\", create a new class, which extends \"algorithm\"\n" +
-                        "It is recommended that you read the source code for the provided algorithms to learn the " +
-                                "commands provided by visualiser.PathVis.\n" +
-                        "Your new class will have methods and variables for solving and visualising the problem\n" +
-                        "You must override the method solve(), where you will implement your solution\n" +
-                        "You have two lists included: frontier and visited. Before frontier can be used, it must be " +
-                                "initialized as a stack, queue or priority queue using initializeFrontierAs(type).\n" +
-                        "The method projectLine(Vertex a, Vertex b) is purely a visual function which draws a line " +
-                                "between vertices. removeProjectedLines() must be called to remove them.\n" +
-                        "getWeight(Vertex a, Vertex b) returns the weight of the edge connecting the two vertices\n" +
-                        "Once a path has been found, add all vertices to the path list by calling addToPath(Vertex) " +
-                                "then call drawPath() to visualise it.\n" +
-                        "The step(stepNum) method acts as a break point in the algorithm where execution will pause " +
-                                "until the user clicks the step button. The string at index stepNum in pseudocode " +
-                                "(if initialized) will be highlighted.\n" +
-                        "Each node in the network is of type Vertex. Vertex contains the variables, parent, used for " +
-                                "storing the previous Vertex in the path, Score, the variable priority queue sorts " +
-                                "by, gScore, useful in A* implementations, x and y coordinates and a getNeighbours() " +
-                                "method which returns a list of connected vertices.\n" +
-                        "Optionally, you may override setPseudocode() where you can add your pseudcode to the variable " +
-                                "\"pseudocode\"\n" +
-                        "Include this JAR in your project and withing your main, call \"visualiser.PathVis.launch()\"");
     }
 
     //Graph events

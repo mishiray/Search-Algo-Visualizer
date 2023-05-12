@@ -1,9 +1,3 @@
-/*
- * Created by The AYOMITIDE_OAJ.
- *
- *
- */
-
 package visualiser;
 
 import javafx.application.Application;

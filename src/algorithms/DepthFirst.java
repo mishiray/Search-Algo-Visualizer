@@ -67,4 +67,9 @@ public class DepthFirst extends Algorithm {
             addToPath(tmp);
         }
     }
+
+
+    public String toString(){
+        return "DepthFirst";
+    }
 }

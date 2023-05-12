@@ -67,4 +67,8 @@ public class BreadthFirst extends Algorithm {
             addToPath(tmp);
         }
     }
+
+    public String toString(){
+        return "BreadthFirst";
+    }
 }

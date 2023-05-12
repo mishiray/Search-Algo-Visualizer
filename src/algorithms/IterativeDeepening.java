@@ -3,9 +3,9 @@ package algorithms;
 import visualiser.Algorithm;
 import visualiser.Vertex;
 
-public class DepthLimited extends Algorithm {
+public class IterativeDeepening extends Algorithm {
 
-    int depth = 0;
+    int depth = 10;
     int limit = 2;
 
     public void setPseudocode(){
@@ -27,9 +27,13 @@ public class DepthLimited extends Algorithm {
 
     @Override
     public void solve(){
+        for (int i = 0; i <= depth; i++)
+            DLS(i);
+    }
+
+    private void DLS(int depth){
         initializeFrontierAs(Algorithm.STACK);
         frontier.add(start);
-        depth = 0;
         step(0);
         while(!frontier.isEmpty()){
             if(depth <= limit) {
@@ -67,6 +71,7 @@ public class DepthLimited extends Algorithm {
             }
         }
     }
+
     private void reconstructPath(Vertex current) {
         addToPath(current);
         Vertex tmp = getCurrent();

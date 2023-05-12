@@ -27,10 +27,12 @@ public abstract class Algorithm {
     private boolean stepDisabled = false;
     protected static final int STACK=0, QUEUE=1, PRIORITY_QUEUE=2;
     static protected DataStructure frontier;
+    static protected DataStructure frontier2;
     protected DataStructure visited;
+    protected DataStructure visited2;
     private VisNode currentNode = null;
     private VisNode  neighbourNode = null;
-    private final ArrayList<VisNode> path = new ArrayList<>();
+    public static ArrayList<VisNode> path = new ArrayList<>();
     static ArrayList<Edge> projectedLines = new ArrayList<>();
     protected ObservableList<String> pseudocode = FXCollections.observableArrayList();
     private static final ChangeListener<String> changeListener = Algorithm::refreshFrontier;
@@ -178,6 +180,22 @@ public abstract class Algorithm {
                 break;
             case PRIORITY_QUEUE:
                 frontier = new PriorityQueue(controller, DataStructure.FRONTIER);
+                break;
+        }
+    }
+    protected void initializeFrontier2As(int type){
+//        if(frontier != null){
+//            throw new Error("Frontier can only be initialized once per run.");
+//        }
+        switch(type){
+            case STACK:
+                frontier2 = new Stack(controller,  DataStructure.FRONTIER);
+                break;
+            case QUEUE:
+                frontier2 = new Queue(controller, DataStructure.FRONTIER);
+                break;
+            case PRIORITY_QUEUE:
+                frontier2 = new PriorityQueue(controller, DataStructure.FRONTIER);
                 break;
         }
     }
